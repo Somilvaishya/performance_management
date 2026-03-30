@@ -1,0 +1,93 @@
+{
+ "allow_customization": 1,
+ "charts": [],
+ "content": "[{\"id\":\"my_work_header\",\"type\":\"header\",\"data\":{\"text\":\"My Work\",\"level\":4}},{\"id\":\"task_links\",\"type\":\"links\",\"data\":{\"links\":[{\"label\":\"My Tasks\",\"link_type\":\"DocType\",\"link_to\":\"Performance Task\",\"type\":\"Link\"},{\"label\":\"Extension Requests\",\"link_type\":\"DocType\",\"link_to\":\"Task Extension Request\",\"type\":\"Link\"}]}},{\"id\":\"mgmt_header\",\"type\":\"header\",\"data\":{\"text\":\"Management\",\"level\":4}},{\"id\":\"mgmt_links\",\"type\":\"links\",\"data\":{\"links\":[{\"label\":\"All Tasks\",\"link_type\":\"DocType\",\"link_to\":\"Performance Task\",\"type\":\"Link\"},{\"label\":\"Checklist Templates\",\"link_type\":\"DocType\",\"link_to\":\"Checklist Template\",\"type\":\"Link\"}]}},{\"id\":\"log_header\",\"type\":\"header\",\"data\":{\"text\":\"Logs\",\"level\":4}},{\"id\":\"log_links\",\"type\":\"links\",\"data\":{\"links\":[{\"label\":\"Audit Log\",\"link_type\":\"DocType\",\"link_to\":\"PM Audit Log\",\"type\":\"Link\"}]}}]",
+ "creation": "2026-03-25 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "icon": "user",
+ "indicator_color": "blue",
+ "is_default": 0,
+ "is_standard": 1,
+ "label": "User Dashboard",
+ "parent_page": "Performance Management",
+ "title": "User Dashboard",
+ "type": "Workspace",
+ "links": [
+  {
+   "label": "My Work",
+   "type": "Card Break",
+   "link_type": ""
+  },
+  {
+   "label": "My Tasks",
+   "link_type": "DocType",
+   "link_to": "Performance Task",
+   "type": "Link"
+  },
+  {
+   "label": "Extension Requests",
+   "link_type": "DocType",
+   "link_to": "Task Extension Request",
+   "type": "Link"
+  },
+  {
+   "label": "Management",
+   "type": "Card Break",
+   "link_type": ""
+  },
+  {
+   "label": "All Tasks",
+   "link_type": "DocType",
+   "link_to": "Performance Task",
+   "type": "Link"
+  },
+  {
+   "label": "Checklist Templates",
+   "link_type": "DocType",
+   "link_to": "Checklist Template",
+   "type": "Link"
+  },
+  {
+   "label": "Logs",
+   "type": "Card Break",
+   "link_type": ""
+  },
+  {
+   "label": "Audit Log",
+   "link_type": "DocType",
+   "link_to": "PM Audit Log",
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-03-25 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Performance Management",
+ "name": "User Dashboard",
+ "owner": "Administrator",
+ "public": 1,
+ "roles": [
+  {
+   "role": "System User"
+  },
+  {
+   "role": "Manager"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "shortcuts": [
+  {
+   "label": "My Tasks",
+   "link_to": "Performance Task",
+   "type": "DocType"
+  },
+  {
+   "label": "All Tasks",
+   "link_to": "Performance Task",
+   "type": "DocType"
+  }
+ ],
+ "number_cards": []
+}

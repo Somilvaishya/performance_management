@@ -1,0 +1,243 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "format:PM-TASK-{#####}",
+ "creation": "2026-03-25 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "task_title",
+  "department",
+  "assigned_to",
+  "assigned_by",
+  "task_type",
+  "col_break_1",
+  "status",
+  "priority",
+  "deadline",
+  "completion_date",
+  "section_details",
+  "description",
+  "section_approval",
+  "requires_approval",
+  "approval_status",
+  "col_break_2",
+  "approved_by",
+  "rejection_reason",
+  "section_tracking",
+  "score",
+  "is_overdue",
+  "extension_count",
+  "col_break_3",
+  "checklist_template",
+  "parent_task",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "task_title",
+   "fieldtype": "Data",
+   "label": "Task Title",
+   "reqd": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "assigned_to",
+   "fieldtype": "Link",
+   "label": "Assigned To",
+   "options": "User",
+   "reqd": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "assigned_by",
+   "fieldtype": "Link",
+   "label": "Assigned By",
+   "options": "User"
+  },
+  {
+   "fieldname": "task_type",
+   "fieldtype": "Select",
+   "label": "Task Type",
+   "options": "Delegation\nChecklist\nCompliance\nOperational",
+   "default": "Delegation",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "col_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nPending\nIn Progress\nPending Approval\nApproved\nReopened\nCancelled",
+   "default": "Draft",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "label": "Priority",
+   "options": "Low\nMedium\nHigh\nCritical",
+   "default": "Medium",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "deadline",
+   "fieldtype": "Datetime",
+   "label": "Deadline",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "completion_date",
+   "fieldtype": "Datetime",
+   "label": "Completion Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_details",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "fieldname": "section_approval",
+   "fieldtype": "Section Break",
+   "label": "Approval"
+  },
+  {
+   "fieldname": "requires_approval",
+   "fieldtype": "Check",
+   "label": "Requires Approval",
+   "default": "0"
+  },
+  {
+   "fieldname": "approval_status",
+   "fieldtype": "Select",
+   "label": "Approval Status",
+   "options": "Not Required\nPending\nApproved\nRejected",
+   "default": "Not Required"
+  },
+  {
+   "fieldname": "col_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rejection_reason",
+   "fieldtype": "Small Text",
+   "label": "Rejection Reason"
+  },
+  {
+   "fieldname": "section_tracking",
+   "fieldtype": "Section Break",
+   "label": "Tracking"
+  },
+  {
+   "fieldname": "score",
+   "fieldtype": "Float",
+   "label": "Score",
+   "default": "100",
+   "read_only": 1
+  },
+  {
+   "fieldname": "is_overdue",
+   "fieldtype": "Check",
+   "label": "Is Overdue",
+   "default": "0",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "extension_count",
+   "fieldtype": "Int",
+   "label": "Extension Count",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "col_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "checklist_template",
+   "fieldtype": "Link",
+   "label": "Checklist Template",
+   "options": "Checklist Template"
+  },
+  {
+   "fieldname": "parent_task",
+   "fieldtype": "Link",
+   "label": "Parent Task",
+   "options": "Performance Task"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "options": "Performance Task",
+   "no_copy": 1,
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_view": 1,
+ "is_submittable": 0,
+ "modified": "2026-03-25 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Performance Management",
+ "name": "Performance Task",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System User",
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "task_title",
+ "search_fields": "task_title,assigned_to,status"
+}

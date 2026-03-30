@@ -1,0 +1,1 @@
+frappe.query_reports["Overdue Task Trend"] = {"filters": []};

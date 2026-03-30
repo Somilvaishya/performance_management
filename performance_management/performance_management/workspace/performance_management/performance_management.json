@@ -1,0 +1,105 @@
+{
+ "creation": "2026-03-26 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "icon": "check",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "is_standard": 1,
+ "label": "Performance Management",
+ "modified": "2026-12-31 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Performance Management",
+ "name": "Performance Management",
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "System User"
+  },
+  {
+   "role": "Manager"
+  }
+ ],
+ "content": "[{\"id\":\"welcome\",\"type\":\"header\",\"data\":{\"text\":\"Performance Management Workspace\",\"level\":3}},{\"id\":\"main_card\",\"type\":\"card\",\"data\":{\"card_name\":\"Core Features\",\"col\":12}},{\"id\":\"report_card\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports & Logs\",\"col\":12}}]",
+ "charts": [],
+ "shortcuts": [],
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Core Features",
+   "link_count": 0,
+   "link_to": "",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Performance Task",
+   "link_count": 0,
+   "link_to": "Performance Task",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Task Extension Request",
+   "link_count": 0,
+   "link_to": "Task Extension Request",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Checklist Template",
+   "link_count": 0,
+   "link_to": "Checklist Template",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Reports & Logs",
+   "link_count": 0,
+   "link_to": "",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "PM Audit Log",
+   "link_count": 0,
+   "link_to": "PM Audit Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Team Performance Report",
+   "link_count": 0,
+   "link_to": "Team Performance Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "number_cards": []
+}

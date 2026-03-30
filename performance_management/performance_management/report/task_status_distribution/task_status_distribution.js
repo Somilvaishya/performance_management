@@ -1,0 +1,1 @@
+frappe.query_reports["Task Status Distribution"] = {"filters": []};

@@ -1,0 +1,15 @@
+[project]
+name = "performance_management"
+authors = [
+    {name = "Somil Vaishya", email = "somilvaishya78@gmail.com"}
+]
+description = "Enterprise Task Intelligence System"
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "mit"}
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = {attr = "performance_management.__version__"}
+
+[tool.bench.dev-dependencies]

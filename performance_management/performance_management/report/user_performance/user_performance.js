@@ -1,0 +1,1 @@
+frappe.query_reports["User Performance"] = {"filters": []};
