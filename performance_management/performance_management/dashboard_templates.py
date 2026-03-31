@@ -96,11 +96,11 @@ def get_raw_user_html():
 <body class="bg-background text-on-surface font-body p-8 min-h-screen">
 <div class="max-w-7xl mx-auto space-y-8">
 <!-- Row 1: Motivational Header -->
-<header class="relative overflow-hidden rounded-xxl glass-pane p-12 flex flex-col justify-center min-h-[200px] group">
+<header class="relative overflow-hidden rounded-xxl glass-pane p-8 flex flex-col justify-center min-h-[140px] group">
 <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-tertiary/10 opacity-50"></div>
 <div class="relative z-10 max-w-4xl">
-<span class="text-primary-fixed-dim font-label text-xs tracking-[0.2em] uppercase mb-4 block">Executive Vision</span>
-<h1 class="font-headline text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-on-surface" id="motivational_quote">
+<span class="text-primary-fixed-dim font-label text-[10px] tracking-[0.2em] uppercase mb-2 block">Executive Vision</span>
+<h1 class="font-headline text-xl md:text-2xl lg:text-2xl font-extrabold leading-tight tracking-tight text-on-surface" id="motivational_quote">
                     Success is not final, failure is not fatal: it is the courage to continue that counts.
                 </h1>
 </div>
@@ -110,79 +110,79 @@ def get_raw_user_html():
 <!-- Row 2: 4 KPI Cards -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 <!-- Today's Tasks -->
-<button class="glass-pane glass-card-hover rounded-xl p-6 text-left transition-all duration-300 group" onclick="window.parent.frappe.set_route('List', 'Performance Task', {'task_type':'Checklist', 'creation':['Timespan', 'today']});">
+<button class="glass-pane glass-card-hover rounded-xl p-4 text-left transition-all duration-300 group" onclick="window.parent.frappe.set_route('List', 'Performance Task', {'task_type':'Checklist', 'creation':['Timespan', 'today']});">
 <div class="flex items-center justify-between mb-4">
-<div class="p-3 rounded-lg bg-primary/10 text-primary">
-<span class="material-symbols-outlined">calendar_today</span>
+<div class="p-2 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-xl">calendar_today</span>
 </div>
-<span class="text-[10px] font-bold text-primary-fixed-dim tracking-widest uppercase opacity-60">Real-time</span>
+<span class="text-[9px] font-bold text-primary-fixed-dim tracking-widest uppercase opacity-60">Real-time</span>
 </div>
-<h3 class="text-on-surface-variant text-sm font-medium mb-1">Today's Tasks</h3>
+<h3 class="text-on-surface-variant text-xs font-medium mb-1">Today's Tasks</h3>
 <div class="flex items-baseline gap-2">
-<span class="font-headline text-3xl font-bold text-on-surface" id="kpi_tc">--</span>
-<span class="text-tertiary text-xs font-medium">Active</span>
+<span class="font-headline text-2xl font-bold text-on-surface" id="kpi_tc">--</span>
+<span class="text-tertiary text-[10px] font-medium">Active</span>
 </div>
 </button>
 <!-- Total Delegation -->
-<button class="glass-pane glass-card-hover rounded-xl p-6 text-left transition-all duration-300" onclick="window.parent.frappe.set_route('List', 'Performance Task', {'task_type':'Delegation'});">
+<button class="glass-pane glass-card-hover rounded-xl p-4 text-left transition-all duration-300" onclick="window.parent.frappe.set_route('List', 'Performance Task', {'task_type':'Delegation'});">
 <div class="flex items-center justify-between mb-4">
-<div class="p-3 rounded-lg bg-secondary-container/30 text-secondary">
-<span class="material-symbols-outlined">account_tree</span>
+<div class="p-2 rounded-lg bg-secondary-container/30 text-secondary">
+<span class="material-symbols-outlined text-xl">account_tree</span>
 </div>
 </div>
-<h3 class="text-on-surface-variant text-sm font-medium mb-1">Total Delegation</h3>
-<span class="font-headline text-3xl font-bold text-on-surface" id="kpi_td">--</span>
+<h3 class="text-on-surface-variant text-xs font-medium mb-1">Total Delegation</h3>
+<span class="font-headline text-2xl font-bold text-on-surface" id="kpi_td">--</span>
 </button>
 <!-- Pending Checklist -->
-<button class="glass-pane glass-card-hover rounded-xl p-6 text-left transition-all duration-300" onclick="window.parent.frappe.set_route('List', 'Performance Task', {'task_type':'Checklist', 'status': 'Pending'});">
+<button class="glass-pane glass-card-hover rounded-xl p-4 text-left transition-all duration-300" onclick="window.parent.frappe.set_route('List', 'Performance Task', {'task_type':'Checklist', 'status': 'Pending'});">
 <div class="flex items-center justify-between mb-4">
-<div class="p-3 rounded-lg bg-error-container/20 text-error">
-<span class="material-symbols-outlined">assignment_late</span>
+<div class="p-2 rounded-lg bg-error-container/20 text-error">
+<span class="material-symbols-outlined text-xl">assignment_late</span>
 </div>
 </div>
-<h3 class="text-on-surface-variant text-sm font-medium mb-1">Pending Checklist</h3>
-<span class="font-headline text-3xl font-bold text-on-surface" id="kpi_pc">--</span>
+<h3 class="text-on-surface-variant text-xs font-medium mb-1">Pending Checklist</h3>
+<span class="font-headline text-2xl font-bold text-on-surface" id="kpi_pc">--</span>
 </button>
 <!-- Pending Delegation -->
-<button class="glass-pane glass-card-hover rounded-xl p-6 text-left transition-all duration-300" onclick="window.parent.frappe.set_route('List', 'Performance Task', {'task_type':'Delegation', 'status': 'Pending'});">
+<button class="glass-pane glass-card-hover rounded-xl p-4 text-left transition-all duration-300" onclick="window.parent.frappe.set_route('List', 'Performance Task', {'task_type':'Delegation', 'status': 'Pending'});">
 <div class="flex items-center justify-between mb-4">
-<div class="p-3 rounded-lg bg-tertiary-container/10 text-tertiary">
-<span class="material-symbols-outlined">pending_actions</span>
+<div class="p-2 rounded-lg bg-tertiary-container/10 text-tertiary">
+<span class="material-symbols-outlined text-xl">pending_actions</span>
 </div>
 </div>
-<h3 class="text-on-surface-variant text-sm font-medium mb-1">Pending Delegation</h3>
-<span class="font-headline text-3xl font-bold text-on-surface" id="kpi_pd">--</span>
+<h3 class="text-on-surface-variant text-xs font-medium mb-1">Pending Delegation</h3>
+<span class="font-headline text-2xl font-bold text-on-surface" id="kpi_pd">--</span>
 </button>
 </div>
 <!-- Row 3: 4 Quick Shortcut Pill Buttons -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-<button class="glass-pane glass-card-hover flex items-center justify-between px-5 py-4 rounded-full transition-all duration-300 group" onclick="window.parent.frappe.set_route('List', 'Task Extension Request', {'approval_status':'Pending'});">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary-fixed-dim group-hover:rotate-12 transition-transform">hourglass_empty</span>
-<span class="text-xs font-semibold text-on-surface-variant group-hover:text-on-surface">Pending Extension</span>
+<button class="glass-pane glass-card-hover flex items-center justify-between px-4 py-2.5 rounded-full transition-all duration-300 group" onclick="window.parent.frappe.set_route('List', 'Task Extension Request', {'approval_status':'Pending'});">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary-fixed-dim group-hover:rotate-12 transition-transform">hourglass_empty</span>
+<span class="text-[10px] font-semibold text-on-surface-variant group-hover:text-on-surface">Pending Extension</span>
 </div>
-<span class="bg-primary/20 text-primary-fixed-dim text-[10px] font-bold px-2 py-0.5 rounded-full" id="shortcut_pe">--</span>
+<span class="bg-primary/20 text-primary-fixed-dim text-[9px] font-bold px-2 py-0.5 rounded-full" id="shortcut_pe">--</span>
 </button>
-<button class="glass-pane glass-card-hover flex items-center justify-between px-5 py-4 rounded-full transition-all duration-300 group" onclick="window.parent.frappe.set_route('List', 'Task Extension Request', {'approval_status':'Approved'});">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-tertiary group-hover:scale-110 transition-transform">check_circle</span>
-<span class="text-xs font-semibold text-on-surface-variant group-hover:text-on-surface">Approved Requests</span>
+<button class="glass-pane glass-card-hover flex items-center justify-between px-4 py-2.5 rounded-full transition-all duration-300 group" onclick="window.parent.frappe.set_route('List', 'Task Extension Request', {'approval_status':'Approved'});">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-tertiary group-hover:scale-110 transition-transform">check_circle</span>
+<span class="text-[10px] font-semibold text-on-surface-variant group-hover:text-on-surface">Approved Requests</span>
 </div>
-<span class="bg-tertiary/10 text-tertiary text-[10px] font-bold px-2 py-0.5 rounded-full" id="shortcut_ae">--</span>
+<span class="bg-tertiary/10 text-tertiary text-[9px] font-bold px-2 py-0.5 rounded-full" id="shortcut_ae">--</span>
 </button>
-<button class="glass-pane glass-card-hover flex items-center justify-between px-5 py-4 rounded-full transition-all duration-300 group" onclick="window.parent.frappe.set_route('List', 'Task Extension Request', {'approval_status':'Rejected'});">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-error group-hover:shake transition-transform">cancel</span>
-<span class="text-xs font-semibold text-on-surface-variant group-hover:text-on-surface">Rejected Requests</span>
+<button class="glass-pane glass-card-hover flex items-center justify-between px-4 py-2.5 rounded-full transition-all duration-300 group" onclick="window.parent.frappe.set_route('List', 'Task Extension Request', {'approval_status':'Rejected'});">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-error group-hover:shake transition-transform">cancel</span>
+<span class="text-[10px] font-semibold text-on-surface-variant group-hover:text-on-surface">Rejected Requests</span>
 </div>
-<span class="bg-error/10 text-error text-[10px] font-bold px-2 py-0.5 rounded-full" id="shortcut_re">--</span>
+<span class="bg-error/10 text-error text-[9px] font-bold px-2 py-0.5 rounded-full" id="shortcut_re">--</span>
 </button>
-<button class="glass-pane glass-card-hover flex items-center justify-between px-5 py-4 rounded-full transition-all duration-300 group" onclick="window.parent.frappe.set_route('List', 'Performance Task', {'status':'Pending Approval'});">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-secondary group-hover:translate-x-1 transition-transform">verified</span>
-<span class="text-xs font-semibold text-on-surface-variant group-hover:text-on-surface">Awaiting Approval</span>
+<button class="glass-pane glass-card-hover flex items-center justify-between px-4 py-2.5 rounded-full transition-all duration-300 group" onclick="window.parent.frappe.set_route('List', 'Performance Task', {'status':'Pending Approval'});">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary group-hover:translate-x-1 transition-transform">verified</span>
+<span class="text-[10px] font-semibold text-on-surface-variant group-hover:text-on-surface">Awaiting Approval</span>
 </div>
-<span class="bg-secondary/10 text-secondary text-[10px] font-bold px-2 py-0.5 rounded-full" id="shortcut_aa">--</span>
+<span class="bg-secondary/10 text-secondary text-[9px] font-bold px-2 py-0.5 rounded-full" id="shortcut_aa">--</span>
 </button>
 </div>
 <!-- Bottom Section: Performance Matrix -->
@@ -191,43 +191,40 @@ def get_raw_user_html():
 <h2 class="font-headline text-xl font-bold text-on-surface tracking-tight">My Performance Matrix</h2>
 <div class="h-[1px] flex-grow bg-gradient-to-r from-outline-variant/30 to-transparent"></div>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 <!-- Completion Trend Container -->
-<div class="glass-pane rounded-xxl p-8 relative overflow-hidden group">
+<div class="glass-pane rounded-2xl p-6 relative overflow-hidden group">
 <div class="absolute top-0 right-0 p-4">
-<span class="material-symbols-outlined text-outline-variant/50">trending_up</span>
+<span class="material-symbols-outlined text-outline-variant/50 text-base">trending_up</span>
 </div>
-<div class="mb-6">
-<h4 class="font-semibold text-on-surface">Completion Velocity</h4>
-<p class="text-xs text-on-surface-variant">Task completion rate over the last 30 days</p>
+<div class="mb-4">
+<h4 class="font-semibold text-on-surface text-sm">Completion Velocity</h4>
+<p class="text-[10px] text-on-surface-variant">Efficiency over 30 days</p>
 </div>
-<div class="relative z-10 transition-opacity duration-500" id="chart_my_completion_trend" style="height:300px; width:100%;">
-<!-- Chart placeholder aesthetic -->
-<div class="w-full h-full flex items-end justify-between gap-2 px-2 pb-4 opacity-20">
-<div class="bg-primary-dim w-full rounded-t-lg h-[40%]"></div>
-<div class="bg-primary-dim w-full rounded-t-lg h-[60%]"></div>
-<div class="bg-primary-dim w-full rounded-t-lg h-[45%]"></div>
-<div class="bg-primary-dim w-full rounded-t-lg h-[80%]"></div>
-<div class="bg-primary-dim w-full rounded-t-lg h-[55%]"></div>
-<div class="bg-primary-dim w-full rounded-t-lg h-[90%]"></div>
-<div class="bg-primary-dim w-full rounded-t-lg h-[70%]"></div>
-</div>
-</div>
+<div class="relative z-10 transition-opacity duration-500" id="chart_my_completion_trend" style="height:260px; width:100%;"></div>
 </div>
 <!-- Status Distribution Container -->
-<div class="glass-pane rounded-xxl p-8 relative overflow-hidden group">
+<div class="glass-pane rounded-2xl p-6 relative overflow-hidden group">
 <div class="absolute top-0 right-0 p-4">
-<span class="material-symbols-outlined text-outline-variant/50">pie_chart</span>
+<span class="material-symbols-outlined text-outline-variant/50 text-base">pie_chart</span>
 </div>
-<div class="mb-6">
-<h4 class="font-semibold text-on-surface">Status Distribution</h4>
-<p class="text-xs text-on-surface-variant">Current workload breakdown by lifecycle stage</p>
+<div class="mb-4">
+<h4 class="font-semibold text-on-surface text-sm">Status Distribution</h4>
+<p class="text-[10px] text-on-surface-variant">Workload summary</p>
 </div>
-<div class="relative z-10" id="chart_my_status_dist" style="height:300px; width:100%;">
-<!-- Chart placeholder aesthetic -->
-<div class="w-full h-full flex items-center justify-center opacity-20">
-<div class="w-48 h-48 rounded-full border-[16px] border-primary-dim border-t-tertiary border-l-secondary-dim border-r-error-dim animate-spin-slow"></div>
+<div class="relative z-10" id="chart_my_status_dist" style="height:260px; width:100%;"></div>
 </div>
+<!-- Global Leaderboard Container -->
+<div class="glass-pane rounded-2xl p-6 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4">
+<span class="material-symbols-outlined text-outline-variant/30 text-base">military_tech</span>
+</div>
+<div class="mb-4">
+<h4 class="font-semibold text-on-surface text-sm">Top Performers</h4>
+<p class="text-[10px] text-on-surface-variant">Real-time Stats</p>
+</div>
+<div id="top_performers_list" class="space-y-2">
+<!-- Dynamic content via script -->
 </div>
 </div>
 </div>
@@ -339,79 +336,79 @@ def get_raw_admin_html():
 <!-- Top Row: KPI Cards -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 <!-- Card 1 -->
-<button class="glass-card p-6 rounded-xl flex flex-col items-start gap-4 group transition-all duration-300 hover:scale-[1.02] hover:bg-surface-container-highest text-left" onclick='window.parent.frappe.set_route("List", "Performance Task", {"task_type":"Checklist"});'>
+<button class="glass-card p-4 rounded-xl flex flex-col items-start gap-3 group transition-all duration-300 hover:scale-[1.02] hover:bg-surface-container-highest text-left" onclick='window.parent.frappe.set_route("List", "Performance Task", {"task_type":"Checklist"});'>
 <div class="flex items-center justify-between w-full">
-<span class="material-symbols-outlined text-primary text-2xl group-hover:scale-110 transition-transform">checklist</span>
-<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold">Volume</span>
+<span class="material-symbols-outlined text-primary text-xl group-hover:scale-110 transition-transform">checklist</span>
+<span class="text-[9px] uppercase tracking-widest text-on-surface-variant font-semibold">Volume</span>
 </div>
-<div class="space-y-1">
-<h3 class="text-on-surface-variant text-sm font-medium">Total Checklist tasks</h3>
-<p class="font-headline text-3xl font-extrabold text-on-surface" id="kpi_tc">0</p>
+<div class="space-y-0.5">
+<h3 class="text-on-surface-variant text-xs font-medium">Total Checklist tasks</h3>
+<p class="font-headline text-2xl font-extrabold text-on-surface" id="kpi_tc">0</p>
 </div>
 </button>
 <!-- Card 2 -->
-<button class="glass-card p-6 rounded-xl flex flex-col items-start gap-4 group transition-all duration-300 hover:scale-[1.02] hover:bg-surface-container-highest text-left" onclick='window.parent.frappe.set_route("List", "Performance Task", {"task_type":"Delegation"});'>
+<button class="glass-card p-4 rounded-xl flex flex-col items-start gap-3 group transition-all duration-300 hover:scale-[1.02] hover:bg-surface-container-highest text-left" onclick='window.parent.frappe.set_route("List", "Performance Task", {"task_type":"Delegation"});'>
 <div class="flex items-center justify-between w-full">
-<span class="material-symbols-outlined text-tertiary text-2xl group-hover:scale-110 transition-transform">assignment_ind</span>
-<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold">Volume</span>
+<span class="material-symbols-outlined text-tertiary text-xl group-hover:scale-110 transition-transform">assignment_ind</span>
+<span class="text-[9px] uppercase tracking-widest text-on-surface-variant font-semibold">Volume</span>
 </div>
-<div class="space-y-1">
-<h3 class="text-on-surface-variant text-sm font-medium">Total Delegation tasks</h3>
-<p class="font-headline text-3xl font-extrabold text-on-surface" id="kpi_td">0</p>
+<div class="space-y-0.5">
+<h3 class="text-on-surface-variant text-xs font-medium">Total Delegation tasks</h3>
+<p class="font-headline text-2xl font-extrabold text-on-surface" id="kpi_td">0</p>
 </div>
 </button>
 <!-- Card 3 -->
-<button class="glass-card p-6 rounded-xl flex flex-col items-start gap-4 group transition-all duration-300 hover:scale-[1.02] hover:bg-surface-container-highest text-left" onclick='window.parent.frappe.set_route("List", "Performance Task", {"task_type":"Checklist", "status": "Pending"});'>
+<button class="glass-card p-4 rounded-xl flex flex-col items-start gap-3 group transition-all duration-300 hover:scale-[1.02] hover:bg-surface-container-highest text-left" onclick='window.parent.frappe.set_route("List", "Performance Task", {"task_type":"Checklist", "status": "Pending"});'>
 <div class="flex items-center justify-between w-full">
-<span class="material-symbols-outlined text-error text-2xl group-hover:scale-110 transition-transform">pending_actions</span>
-<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold">Priority</span>
+<span class="material-symbols-outlined text-error text-xl group-hover:scale-110 transition-transform">pending_actions</span>
+<span class="text-[9px] uppercase tracking-widest text-on-surface-variant font-semibold">Priority</span>
 </div>
-<div class="space-y-1">
-<h3 class="text-on-surface-variant text-sm font-medium">Pending Checklist tasks</h3>
-<p class="font-headline text-3xl font-extrabold text-on-surface" id="kpi_pc">0</p>
+<div class="space-y-0.5">
+<h3 class="text-on-surface-variant text-xs font-medium">Pending Checklist tasks</h3>
+<p class="font-headline text-2xl font-extrabold text-on-surface" id="kpi_pc">0</p>
 </div>
 </button>
 <!-- Card 4 -->
-<button class="glass-card p-6 rounded-xl flex flex-col items-start gap-4 group transition-all duration-300 hover:scale-[1.02] hover:bg-surface-container-highest text-left" onclick='window.parent.frappe.set_route("List", "Performance Task", {"task_type":"Delegation", "status": "Pending"});'>
+<button class="glass-card p-4 rounded-xl flex flex-col items-start gap-3 group transition-all duration-300 hover:scale-[1.02] hover:bg-surface-container-highest text-left" onclick='window.parent.frappe.set_route("List", "Performance Task", {"task_type":"Delegation", "status": "Pending"});'>
 <div class="flex items-center justify-between w-full">
-<span class="material-symbols-outlined text-primary-fixed text-2xl group-hover:scale-110 transition-transform">hourglass_empty</span>
-<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold">Priority</span>
+<span class="material-symbols-outlined text-primary-fixed text-xl group-hover:scale-110 transition-transform">hourglass_empty</span>
+<span class="text-[9px] uppercase tracking-widest text-on-surface-variant font-semibold">Priority</span>
 </div>
-<div class="space-y-1">
-<h3 class="text-on-surface-variant text-sm font-medium">Pending Delegation tasks</h3>
-<p class="font-headline text-3xl font-extrabold text-on-surface" id="kpi_pd">0</p>
+<div class="space-y-0.5">
+<h3 class="text-on-surface-variant text-xs font-medium">Pending Delegation tasks</h3>
+<p class="font-headline text-2xl font-extrabold text-on-surface" id="kpi_pd">0</p>
 </div>
 </button>
 </div>
 <!-- Middle Row: Quick Shortcut Pills -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-<button class="flex items-center justify-between px-5 py-3 rounded-full glass-card hover:bg-surface-bright transition-all duration-200 group active:scale-95 border border-outline-variant/10" onclick='window.parent.frappe.set_route("List", "Task Extension Request", {"approval_status": "Pending"});'>
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-xl">history</span>
-<span class="text-xs font-semibold text-on-surface-variant">Pending Extension</span>
+<button class="flex items-center justify-between px-4 py-2 rounded-full glass-card hover:bg-surface-bright transition-all duration-200 group active:scale-95 border border-outline-variant/10" onclick='window.parent.frappe.set_route("List", "Task Extension Request", {"approval_status": "Pending"});'>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">history</span>
+<span class="text-[10px] font-semibold text-on-surface-variant">Pending Extension</span>
 </div>
-<span class="bg-primary/20 text-primary text-xs font-bold px-2 py-0.5 rounded-full" id="shortcut_pe">0</span>
+<span class="bg-primary/20 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full" id="shortcut_pe">0</span>
 </button>
-<button class="flex items-center justify-between px-5 py-3 rounded-full glass-card hover:bg-surface-bright transition-all duration-200 group active:scale-95 border border-outline-variant/10" onclick='window.parent.frappe.set_route("List", "Task Extension Request", {"approval_status": "Approved"});'>
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-tertiary text-xl">verified</span>
-<span class="text-xs font-semibold text-on-surface-variant">Approved Extension</span>
+<button class="flex items-center justify-between px-4 py-2 rounded-full glass-card hover:bg-surface-bright transition-all duration-200 group active:scale-95 border border-outline-variant/10" onclick='window.parent.frappe.set_route("List", "Task Extension Request", {"approval_status": "Approved"});'>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-lg">verified</span>
+<span class="text-[10px] font-semibold text-on-surface-variant">Approved Extension</span>
 </div>
-<span class="bg-tertiary/20 text-tertiary text-xs font-bold px-2 py-0.5 rounded-full" id="shortcut_ae">0</span>
+<span class="bg-tertiary/20 text-tertiary text-[10px] font-bold px-2 py-0.5 rounded-full" id="shortcut_ae">0</span>
 </button>
-<button class="flex items-center justify-between px-5 py-3 rounded-full glass-card hover:bg-surface-bright transition-all duration-200 group active:scale-95 border border-outline-variant/10" onclick='window.parent.frappe.set_route("List", "Task Extension Request", {"approval_status": "Rejected"});'>
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-error text-xl">cancel</span>
-<span class="text-xs font-semibold text-on-surface-variant">Rejected Extension</span>
+<button class="flex items-center justify-between px-4 py-2 rounded-full glass-card hover:bg-surface-bright transition-all duration-200 group active:scale-95 border border-outline-variant/10" onclick='window.parent.frappe.set_route("List", "Task Extension Request", {"approval_status": "Rejected"});'>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-lg">cancel</span>
+<span class="text-[10px] font-semibold text-on-surface-variant">Rejected Extension</span>
 </div>
-<span class="bg-error/20 text-error text-xs font-bold px-2 py-0.5 rounded-full" id="shortcut_re">0</span>
+<span class="bg-error/20 text-error text-[10px] font-bold px-2 py-0.5 rounded-full" id="shortcut_re">0</span>
 </button>
-<button class="flex items-center justify-between px-5 py-3 rounded-full glass-card hover:bg-surface-bright transition-all duration-200 group active:scale-95 border border-outline-variant/10" onclick='window.parent.frappe.set_route("List", "Performance Task", {"status": "Pending Approval"});'>
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary-fixed text-xl">visibility</span>
-<span class="text-xs font-semibold text-on-surface-variant">Awaiting Approval</span>
+<button class="flex items-center justify-between px-4 py-2 rounded-full glass-card hover:bg-surface-bright transition-all duration-200 group active:scale-95 border border-outline-variant/10" onclick='window.parent.frappe.set_route("List", "Performance Task", {"status": "Pending Approval"});'>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed text-lg">visibility</span>
+<span class="text-[10px] font-semibold text-on-surface-variant">Awaiting Approval</span>
 </div>
-<span class="bg-primary-fixed/20 text-primary-fixed text-xs font-bold px-2 py-0.5 rounded-full" id="shortcut_aa">0</span>
+<span class="bg-primary-fixed/20 text-primary-fixed text-[10px] font-bold px-2 py-0.5 rounded-full" id="shortcut_aa">0</span>
 </button>
 </div>
 <!-- Live Reporting Matrix -->
