@@ -11,6 +11,7 @@
   "assigned_to",
   "assigned_by",
   "task_type",
+  "frequency",
   "col_break_1",
   "status",
   "priority",
@@ -71,6 +72,13 @@
    "label": "Task Type",
    "options": "Delegation\nChecklist\nCompliance\nOperational",
    "default": "Delegation",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "frequency",
+   "fieldtype": "Select",
+   "label": "Frequency",
+   "options": "\nDaily\nWeekly\nMonthly\nQuarterly\nHalf-Yearly\nYearly",
    "in_list_view": 1
   },
   {

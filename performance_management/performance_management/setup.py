@@ -10,6 +10,9 @@ def after_install():
 	after_migrate()
 
 def after_migrate():
+	# 0. Ensure essential Roles exist (prevents LinkValidationError)
+	ensure_essential_roles()
+
 	# 1. Ensure Custom HTML Blocks exist with latest HTML/JS
 	ensure_custom_html_blocks()
 	
@@ -21,6 +24,17 @@ def after_migrate():
 	
 	# 4. Clear cache to reflect changes
 	frappe.clear_cache()
+
+def ensure_essential_roles():
+	"""Create roles if missing to avoid migration failures."""
+	for role in ["Manager", "Performance Admin"]:
+		if not frappe.db.exists("Role", role):
+			frappe.get_doc({
+				"doctype": "Role",
+				"role_name": role,
+				"desk_access": 1
+			}).insert(ignore_permissions=True)
+			frappe.db.commit()
 
 def ensure_custom_html_blocks():
 	from performance_management.performance_management.dashboard_templates import get_raw_admin_html, get_raw_user_html

@@ -160,6 +160,7 @@ def generate_tasks_from_template(template_name, assigned_to, deadline):
 			"assigned_by": frappe.session.user,
 			"deadline": deadline,
 			"checklist_template": template_name,
+			"frequency": template.frequency,
 			"status": "Pending"
 		})
 		task.flags.ignore_assignment_email = True

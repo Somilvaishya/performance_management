@@ -18,16 +18,70 @@
   "items"
  ],
  "fields": [
-  {"fieldname": "template_name", "fieldtype": "Data", "label": "Template Name", "reqd": 1, "in_list_view": 1},
-  {"fieldname": "department", "fieldtype": "Link", "label": "Department", "options": "Department", "in_list_view": 1},
-  {"fieldname": "task_type", "fieldtype": "Select", "label": "Task Type", "options": "Checklist\nCompliance\nOperational", "default": "Checklist"},
-  {"fieldname": "default_priority", "fieldtype": "Select", "label": "Default Priority", "options": "Low\nMedium\nHigh\nCritical", "default": "Medium"},
-  {"fieldname": "col_break_1", "fieldtype": "Column Break"},
-  {"fieldname": "active", "fieldtype": "Check", "label": "Active", "default": "1", "in_list_view": 1},
-  {"fieldname": "frequency", "fieldtype": "Select", "label": "Frequency", "options": "\nDaily\nWeekly\nMonthly\nQuarterly\nHalf-Yearly\nYearly"},
-  {"fieldname": "assigned_to", "fieldtype": "Link", "label": "Assigned To", "options": "User"},
-  {"fieldname": "section_items", "fieldtype": "Section Break", "label": "Checklist Items"},
-  {"fieldname": "items", "fieldtype": "Table", "label": "Items", "options": "Checklist Template Item", "reqd": 1}
+  {
+   "fieldname": "template_name",
+   "fieldtype": "Data",
+   "label": "Template Name",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "task_type",
+   "fieldtype": "Select",
+   "label": "Task Type",
+   "options": "Checklist\nCompliance\nOperational",
+   "default": "Checklist"
+  },
+  {
+   "fieldname": "default_priority",
+   "fieldtype": "Select",
+   "label": "Default Priority",
+   "options": "Low\nMedium\nHigh\nCritical",
+   "default": "Medium"
+  },
+  {
+   "fieldname": "col_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "active",
+   "fieldtype": "Check",
+   "label": "Active",
+   "default": "1",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "frequency",
+   "fieldtype": "Select",
+   "label": "Frequency",
+   "options": "\nDaily\nWeekly\nMonthly\nQuarterly\nHalf-Yearly\nYearly",
+   "reqd": 1
+  },
+  {
+   "fieldname": "assigned_to",
+   "fieldtype": "Link",
+   "label": "Assigned To",
+   "options": "User"
+  },
+  {
+   "fieldname": "section_items",
+   "fieldtype": "Section Break",
+   "label": "Checklist Items"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Checklist Template Item",
+   "reqd": 1
+  }
  ],
  "modified": "2026-03-26 00:00:00.000000",
  "modified_by": "Administrator",
@@ -35,7 +89,13 @@
  "name": "Checklist Template",
  "owner": "Administrator",
  "permissions": [
-  {"create": 1, "delete": 1, "read": 1, "role": "System Manager", "write": 1}
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "System Manager",
+   "write": 1
+  }
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
