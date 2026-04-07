@@ -60,55 +60,70 @@ def ensure_custom_html_blocks():
 	# Update or create Custom HTML Blocks
 	for block_name, block_html in [("PM Admin Dashboard", admin_srcdoc), ("PM User Dashboard", user_srcdoc)]:
 		if frappe.db.exists("Custom HTML Block", block_name):
-			frappe.db.set_value("Custom HTML Block", block_name, "html", block_html)
+			doc = frappe.get_doc("Custom HTML Block", block_name)
+			doc.html = block_html
+			doc.private = 0
+			doc.save(ignore_permissions=True)
 		else:
 			frappe.get_doc({
 				"doctype": "Custom HTML Block",
 				"name": block_name,
 				"html_block_name": block_name,
-				"html": block_html
+				"html": block_html,
+				"private": 0
 			}).insert(ignore_permissions=True)
 
 def ensure_workspaces():
-	# 1. Performance Management (Admin)
-	admin_ws_name = "Performance Management"
-	if frappe.db.exists("Workspace", admin_name := admin_ws_name):
-		doc = frappe.get_doc("Workspace", admin_name)
-		doc.type = "Workspace"
-		doc.public = 1
-		doc.module = "Performance Management"
-		doc.label = admin_name
-		doc.title = admin_name
-		doc.icon = "octicon-graph" # Professional Icon
-		doc.parent_page = ""
-		# Only custom block
-		doc.links = []
-		doc.shortcuts = []
-		doc.number_cards = []
-		if not any(b.custom_block_name == "PM Admin Dashboard" for b in doc.custom_blocks):
-			doc.append("custom_blocks", {"custom_block_name": "PM Admin Dashboard", "idx": 0})
-		doc.save(ignore_permissions=True)
-
-	# 2. User Performance Dashboard
-	user_ws_name = "User Performance Dashboard"
-	if not frappe.db.exists("Workspace", user_ws_name):
-		# Create if missing
-		doc = frappe.get_doc({
-			"doctype": "Workspace",
-			"name": user_ws_name,
-			"label": user_ws_name,
-			"title": user_ws_name,
-			"type": "Workspace",
-			"public": 1,
-			"module": "Performance Management",
-			"parent_page": "",
-			"roles": [{"role": "All"}],
-			"custom_blocks": [{"custom_block_name": "PM User Dashboard"}]
-		}).insert(ignore_permissions=True)
+	"""Consolidate all dashboards into a single, clean 'Performance Management' workspace."""
+	# 1. Handle the main "Performance Management" workspace
+	ws_name = "Performance Management"
+	if frappe.db.exists("Workspace", ws_name):
+		doc = frappe.get_doc("Workspace", ws_name)
 	else:
-		doc = frappe.get_doc("Workspace", user_ws_name)
-		doc.parent_page = "" # Ensure it stays top-level
-		doc.save(ignore_permissions=True)
+		doc = frappe.new_doc("Workspace")
+		doc.name = ws_name
+
+	doc.label = ws_name
+	doc.title = ws_name
+	doc.type = "Workspace"
+	doc.public = 1
+	doc.module = "Performance Management"
+	doc.icon = "octicon-graph"
+	doc.parent_page = ""
+	
+	# CLEANUP: Remove all default components
+	doc.links = []
+	doc.shortcuts = []
+	doc.number_cards = []
+	doc.charts = []
+	
+	# ENSURE CUSTOM BLOCKS ONLY
+	doc.custom_blocks = []
+	doc.append("custom_blocks", {
+		"custom_block_name": "PM Admin Dashboard",
+		"label": "Admin Overview",
+		"idx": 0
+	})
+	doc.append("custom_blocks", {
+		"custom_block_name": "PM User Dashboard",
+		"label": "My Performance",
+		"idx": 1
+	})
+	
+	# Clear "content" field to ensure fallback to child tables in newer Frappe versions
+	# MUST be a JSON list string to pass Workspace.validate()
+	doc.content = "[]"
+	
+	# Ensure roles include "All" for broad accessibility
+	if not any(r.role == "All" for r in doc.roles):
+		doc.append("roles", {"role": "All"})
+		
+	doc.save(ignore_permissions=True)
+
+	# 2. DELETE redundant workspaces
+	old_ws = "User Performance Dashboard"
+	if frappe.db.exists("Workspace", old_ws):
+		frappe.delete_doc("Workspace", old_ws, force=True, ignore_permissions=True)
 
 def ensure_page_proxy():
 	p_id = "pm-user-dashboard"
