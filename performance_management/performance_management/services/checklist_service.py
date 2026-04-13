@@ -51,7 +51,11 @@ def should_run_today(frequency, current_date):
 
 def create_tasks_for_template(template):
 	"""Iterates through template items and creates tasks"""
-	items = frappe.get_all("Checklist Template Item", filters={"parent": template.name}, fields=["item_title", "description"])
+	items = frappe.get_all(
+		"Checklist Template Item",
+		filters={"parent": template.name},
+		fields=["item_title", "description"]
+	)
 	if not items:
 		return 0
 		
@@ -62,29 +66,40 @@ def create_tasks_for_template(template):
 	count = 0
 	today_str = today()
 	
+	# Bug 1 Fix: Set deadline to end-of-day so the hourly mark_overdue_tasks
+	# job does NOT immediately mark newly-created tasks as overdue.
+	# The field type is Datetime; a plain date string resolves to 00:00:00
+	# which is immediately in the past for any job running after midnight.
+	deadline_eod = today_str + " 23:59:59"
+	
 	for item in items:
-		# Anti-duplicate check (same title, user, and deadline)
-		exists = frappe.db.exists("Performance Task", {
-			"task_title": item.item_title,
-			"assigned_to": template.assigned_to,
-			"deadline": today_str,
-			"checklist_template": template.name
-		})
+		# Anti-duplicate check: use date portion of deadline for matching
+		exists = frappe.db.sql("""
+			SELECT name FROM `tabPerformance Task`
+			WHERE task_title = %s
+			  AND assigned_to = %s
+			  AND DATE(deadline) = %s
+			  AND checklist_template = %s
+			LIMIT 1
+		""", (item.item_title, template.assigned_to, today_str, template.name))
 		
 		if not exists:
+			# Bug 3 Fix: Copy frequency from the template so the Performance Task
+			# correctly reflects which frequency generated it.
 			doc = frappe.get_doc({
 				"doctype": "Performance Task",
 				"task_title": item.item_title,
 				"description": item.description or "",
 				"task_type": "Checklist",
+				"frequency": template.frequency,          # ← Bug 3 fix
 				"priority": template.default_priority or "Medium",
 				"department": template.department,
 				"assigned_to": template.assigned_to,
 				"assigned_by": "Administrator",
-				"deadline": today_str,
+				"deadline": deadline_eod,                 # ← Bug 1 fix
 				"checklist_template": template.name,
 				"status": "Pending",
-				"requires_approval": 0 # Default for checklist
+				"requires_approval": 0
 			})
 			doc.flags.ignore_assignment_email = True
 			doc.insert(ignore_permissions=True)

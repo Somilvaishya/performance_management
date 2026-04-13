@@ -3,16 +3,23 @@ from frappe.utils import now_datetime, get_datetime, add_days, today
 
 
 def mark_overdue_tasks():
-	"""Hourly job: Mark tasks as overdue if past deadline."""
-	tasks = frappe.get_all(
-		"Performance Task",
-		filters={
-			"status": ["in", ["Pending", "In Progress"]],
-			"deadline": ["<", now_datetime()],
-			"is_overdue": 0
-		},
-		fields=["name"]
-	)
+	"""
+	Hourly job: Mark tasks as overdue if their deadline date has fully passed.
+	
+	Bug Fix: Previously used `deadline < now_datetime()`, which caused tasks created
+	today with deadline "YYYY-MM-DD 23:59:59" to remain safe, BUT tasks created with
+	plain date string (old code) "YYYY-MM-DD 00:00:00" were immediately overdue.
+	Now using DATE(deadline) < CURDATE() — only tasks whose deadline day has passed
+	(i.e., yesterday or earlier) are marked overdue. Today's tasks never go overdue
+	on the day they are created.
+	"""
+	tasks = frappe.db.sql("""
+		SELECT name FROM `tabPerformance Task`
+		WHERE status IN ('Pending', 'In Progress')
+		  AND is_overdue = 0
+		  AND DATE(deadline) < CURDATE()
+	""", as_dict=True)
+
 	for t in tasks:
 		frappe.db.set_value("Performance Task", t.name, "is_overdue", 1)
 	if tasks:
@@ -21,7 +28,10 @@ def mark_overdue_tasks():
 
 
 def send_daily_reminders():
-	"""Daily job: Send reminder email to each user with pending/in-progress tasks due today."""
+	"""
+	Daily job (runs at 8 AM via cron): Send reminder email to each user
+	with pending/in-progress tasks due today or already overdue.
+	"""
 	today_str = today()
 	tasks = frappe.db.sql("""
 		SELECT assigned_to, name, task_title, deadline, is_overdue
@@ -75,3 +85,4 @@ def send_reminder_email(user, tasks):
 		subject=f"📋 Your Daily Task Reminder — {len(tasks)} Pending",
 		message=html
 	)
+

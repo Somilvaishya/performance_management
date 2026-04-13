@@ -11,10 +11,18 @@ scheduler_events = {
     "hourly": [
         "performance_management.performance_management.utils.automation.mark_overdue_tasks",
     ],
+    # Runs once at midnight — creates today's checklist tasks
     "daily": [
         "performance_management.performance_management.services.checklist_service.create_daily_checklists",
-        "performance_management.performance_management.utils.automation.send_daily_reminders",
     ],
+    # Bug 2 Fix: Run reminder emails at 8 AM every day (after checklist creation at midnight).
+    # Previously both jobs were in "daily" with no guaranteed order, so reminders could
+    # fire before checklists were created, resulting in empty/missing reminder emails.
+    "cron": {
+        "0 8 * * *": [
+            "performance_management.performance_management.utils.automation.send_daily_reminders",
+        ]
+    }
 }
 
 # ─── Doc Events ──────────────────────────────────────────────────────────────
@@ -30,3 +38,4 @@ after_migrate = "performance_management.performance_management.setup.after_migra
 
 # ─── Desktop Icon ────────────────────────────────────────────────────────────
 # The Workspace "Performance Management" will serve as the app entry point.
+
