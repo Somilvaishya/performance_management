@@ -10,8 +10,9 @@ def execute(filters=None):
 
 def get_columns():
 	return [
-		{"fieldname": "employee", "label": _("Employee"), "fieldtype": "Link", "options": "User", "width": 150},
+		{"fieldname": "employee", "label": _("Employee"), "fieldtype": "Data", "width": 150},
 		{"fieldname": "department", "label": _("Department"), "fieldtype": "Link", "options": "Department", "width": 150},
+		{"fieldname": "task_type", "label": _("Task Type"), "fieldtype": "Data", "width": 120},
 		{"fieldname": "total_tasks", "label": _("Total Tasks"), "fieldtype": "Int", "width": 100},
 		{"fieldname": "completed_tasks", "label": _("Completed"), "fieldtype": "Int", "width": 100},
 		{"fieldname": "completion_rate", "label": _("Completion Rate %"), "fieldtype": "Percent", "width": 120},
@@ -24,19 +25,22 @@ def get_data(filters):
 	conditions, filter_values = get_conditions(filters)
 	tasks = frappe.db.sql(f"""
 		SELECT 
-			assigned_to as employee,
-			department,
-			count(name) as total_tasks,
-			sum(case when status='Approved' then 1 else 0 end) as completed_tasks,
-			avg(case when status='Approved' then score else null end) as average_score,
-			sum(is_overdue) as overdue_tasks,
-			sum(extension_count) as extensions
+			u.full_name as employee,
+			t.department,
+			t.task_type,
+			count(t.name) as total_tasks,
+			sum(case when t.status='Approved' then 1 else 0 end) as completed_tasks,
+			avg(case when t.status='Approved' then t.score else null end) as average_score,
+			sum(t.is_overdue) as overdue_tasks,
+			sum(t.extension_count) as extensions
 		FROM 
-			`tabPerformance Task`
+			`tabPerformance Task` t
+		LEFT JOIN
+			`tabUser` u ON t.assigned_to = u.email
 		WHERE 
-			status != 'Cancelled' {conditions}
+			t.status != 'Cancelled' {conditions}
 		GROUP BY 
-			assigned_to, department
+			u.full_name, t.department, t.task_type
 		ORDER BY 
 			average_score DESC
 	""", filter_values, as_dict=1)
@@ -47,22 +51,23 @@ def get_data(filters):
 		
 	return tasks
 
+
 def get_conditions(filters):
 	conditions = ""
 	filter_values = {}
 	
 	if filters:
 		if filters.get("department"):
-			conditions += " AND department = %(department)s"
+			conditions += " AND t.department = %(department)s"
 			filter_values["department"] = filters.get("department")
 		if filters.get("assigned_to"):
-			conditions += " AND assigned_to = %(assigned_to)s"
+			conditions += " AND t.assigned_to = %(assigned_to)s"
 			filter_values["assigned_to"] = filters.get("assigned_to")
 		if filters.get("task_type"):
-			conditions += " AND task_type = %(task_type)s"
+			conditions += " AND t.task_type = %(task_type)s"
 			filter_values["task_type"] = filters.get("task_type")
 		if filters.get("date_range"):
-			conditions += " AND creation BETWEEN %(start_date)s AND %(end_date)s"
+			conditions += " AND t.creation BETWEEN %(start_date)s AND %(end_date)s"
 			filter_values["start_date"] = filters.get("date_range")[0]
 			filter_values["end_date"] = filters.get("date_range")[1]
 			
@@ -72,7 +77,8 @@ def get_chart(data):
 	if not data:
 		return None
 	
-	labels = [d.employee for d in data]
+	# Combine name + task type for readable chart labels
+	labels = [f"{d.employee} ({d.task_type or 'N/A'})" for d in data]
 	scores = [d.average_score for d in data]
 	completion = [d.completion_rate for d in data]
 	
