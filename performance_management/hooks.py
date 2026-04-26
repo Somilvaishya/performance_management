@@ -32,9 +32,26 @@ doc_events = {
     }
 }
 
+# ─── Permissions ─────────────────────────────────────────────────────────────
+permission_query_conditions = {
+    "Performance Task": "performance_management.performance_management.utils.permissions.get_permission_query_conditions",
+}
+
+has_permission = {
+    "Performance Task": "performance_management.performance_management.utils.permissions.has_permission",
+}
+
 # ─── Installation Hooks ───────────────────────────────────────────────────────
 after_install = "performance_management.performance_management.setup.after_install"
 after_migrate = "performance_management.performance_management.setup.after_migrate"
+
+# ─── Fixtures ─────────────────────────────────────────────────────────────────
+fixtures = [
+    {
+        "doctype": "Custom HTML Block",
+        "filters": [["name", "in", ["PM User Dashboard", "PM Admin Dashboard"]]]
+    }
+]
 
 # ─── Desktop Icon ────────────────────────────────────────────────────────────
 # The Workspace "Performance Management" will serve as the app entry point.

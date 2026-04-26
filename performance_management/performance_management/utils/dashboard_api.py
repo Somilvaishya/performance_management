@@ -26,7 +26,7 @@ def get_user_dashboard_data():
 	})
 	
 	total_td = frappe.db.count("Performance Task", {
-		"assigned_by": user,
+		"assigned_to": user,
 		"task_type": "Delegation"
 	})
 	
@@ -37,7 +37,7 @@ def get_user_dashboard_data():
 	})
 	
 	pending_pd = frappe.db.count("Performance Task", {
-		"assigned_by": user,
+		"assigned_to": user,
 		"task_type": "Delegation",
 		"status": "Pending"
 	})
