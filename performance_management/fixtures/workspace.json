@@ -1,0 +1,52 @@
+[
+ {
+  "app": "performance_management",
+  "charts": [],
+  "content": "[]",
+  "custom_blocks": [
+   {
+    "custom_block_name": "PM User Dashboard",
+    "label": "My Performance"
+   },
+   {
+    "custom_block_name": "PM Admin Dashboard",
+    "label": "Admin Overview"
+   }
+  ],
+  "docstatus": 0,
+  "doctype": "Workspace",
+  "external_link": null,
+  "for_user": null,
+  "hide_custom": 0,
+  "icon": "octicon-graph",
+  "indicator_color": "green",
+  "is_hidden": 0,
+  "label": "Performance Management",
+  "link_to": null,
+  "link_type": null,
+  "links": [],
+  "modified": "2026-05-05 14:43:56.965621",
+  "module": "Performance Management",
+  "name": "Performance Management",
+  "number_cards": [],
+  "parent_page": "",
+  "public": 1,
+  "quick_lists": [],
+  "restrict_to_domain": null,
+  "roles": [
+   {
+    "role": "System Manager"
+   },
+   {
+    "role": "Desk User"
+   },
+   {
+    "role": "All"
+   }
+  ],
+  "sequence_id": 0.0,
+  "shortcuts": [],
+  "title": "Performance Management",
+  "type": "Workspace"
+ }
+]
