@@ -1,0 +1,79 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-01 17:08:58.068590",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "enabled",
+  "api_url",
+  "media_url",
+  "id_instance",
+  "api_token_instance"
+ ],
+ "fields": [
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled"
+  },
+  {
+   "default": "https://7103.api.greenapi.com",
+   "fieldname": "api_url",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "API URL",
+   "reqd": 1
+  },
+  {
+   "default": "https://7103.media.greenapi.com",
+   "fieldname": "media_url",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Media URL",
+   "reqd": 1
+  },
+  {
+   "fieldname": "id_instance",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "ID Instance",
+   "reqd": 1
+  },
+  {
+   "fieldname": "api_token_instance",
+   "fieldtype": "Password",
+   "in_list_view": 1,
+   "label": "API Token Instance",
+   "reqd": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-05-01 17:08:58.068590",
+ "modified_by": "Administrator",
+ "module": "Performance Management",
+ "name": "Green API Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

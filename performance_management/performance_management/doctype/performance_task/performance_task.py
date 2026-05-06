@@ -2,6 +2,7 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils import now_datetime, get_datetime
+from performance_management.performance_management.utils.whatsapp import send_dual_notification
 
 
 VALID_STATUSES = ["Draft", "Pending", "In Progress", "Pending Approval", "Approved", "Reopened", "Cancelled"]
@@ -72,34 +73,26 @@ class PerformanceTask(Document):
 		except Exception:
 			pass  # Never let logging break the main flow
 
-	def _send_notification(self, recipient, subject, message):
-		try:
-			recipient_email = frappe.db.get_value("User", recipient, "email") or recipient
-			frappe.sendmail(
-				recipients=recipient_email,
-				subject=subject,
-				message=message,
-				header=[subject, "blue"]
-			)
-		except Exception as e:
-			frappe.log_error(f"Failed to send email to {recipient}: {str(e)}", "Email Notification Error")
-
 	def _send_assignment_email(self):
 		if self.assigned_to:
 			msg = f"<p>Hello,</p><p>You have been assigned a new task: <strong>{self.task_title}</strong>.</p><p>Priority: <b>{self.priority}</b><br>Deadline: <b>{self.deadline or 'None'}</b></p>"
-			self._send_notification(self.assigned_to, f"New Task Assigned: {self.task_title}", msg)
+			wa_msg = f"You have been assigned a new task: *{self.task_title}*.\nPriority: *{self.priority}*\nDeadline: *{self.deadline or 'None'}*"
+			send_dual_notification(self.assigned_to, f"New Task Assigned: {self.task_title}", msg, wa_msg)
 
 	def _send_submission_email(self):
 		if self.assigned_by:
 			msg = f"<p>Hello,</p><p><strong>{self.assigned_to}</strong> has submitted the task <strong>{self.task_title}</strong> for your approval.</p>"
-			self._send_notification(self.assigned_by, f"Task Pending Approval: {self.task_title}", msg)
+			wa_msg = f"*{self.assigned_to}* has submitted the task *{self.task_title}* for your approval."
+			send_dual_notification(self.assigned_by, f"Task Pending Approval: {self.task_title}", msg, wa_msg)
 
 	def _send_decision_email(self, decision, reason=None):
 		if self.assigned_to:
 			reason_html = f"<p>Manager Comments: {reason}</p>" if reason else ""
+			reason_wa = f"\nManager Comments: {reason}" if reason else ""
 			color = "green" if decision == "Approved" else "red"
 			msg = f"<p>Hello,</p><p>Your task <strong>{self.task_title}</strong> has been <b><span style='color:{color}'>{decision}</span></b>.</p>{reason_html}"
-			self._send_notification(self.assigned_to, f"Task {decision}: {self.task_title}", msg)
+			wa_msg = f"Your task *{self.task_title}* has been *{decision}*.{reason_wa}"
+			send_dual_notification(self.assigned_to, f"Task {decision}: {self.task_title}", msg, wa_msg)
 
 	# ── Whitelisted APIs ──────────────────────────────────────────────────────
 

@@ -74,8 +74,9 @@ def ensure_custom_html_blocks():
 			}).insert(ignore_permissions=True)
 
 def ensure_workspaces():
-	"""Consolidate all dashboards into a single, clean 'Performance Management' workspace."""
-	# 1. Handle the main "Performance Management" workspace
+	"""Set up the Performance Management workspace with link cards and custom HTML blocks."""
+	import json
+
 	ws_name = "Performance Management"
 	if frappe.db.exists("Workspace", ws_name):
 		doc = frappe.get_doc("Workspace", ws_name)
@@ -90,40 +91,74 @@ def ensure_workspaces():
 	doc.module = "Performance Management"
 	doc.icon = "octicon-graph"
 	doc.parent_page = ""
-	
-	# CLEANUP: Remove all default components
-	doc.links = []
+
+	# Reset all child tables
 	doc.shortcuts = []
 	doc.number_cards = []
 	doc.charts = []
-	
-	# ENSURE CUSTOM BLOCKS ONLY
+
+	# ── Register available custom HTML blocks ──────────────────────────────
 	doc.custom_blocks = []
-	doc.append("custom_blocks", {
-		"custom_block_name": "PM Admin Dashboard",
-		"label": "Admin Overview",
-		"idx": 0
-	})
-	doc.append("custom_blocks", {
-		"custom_block_name": "PM User Dashboard",
-		"label": "My Performance",
-		"idx": 1
-	})
-	
-	# Clear "content" field to ensure fallback to child tables in newer Frappe versions
-	# MUST be a JSON list string to pass Workspace.validate()
-	doc.content = "[]"
-	
-	# Ensure roles include "All" for broad accessibility
+	for block_name, block_label in [
+		("PM Admin Dashboard", "Admin Overview"),
+		("PM User Dashboard", "My Performance"),
+	]:
+		if frappe.db.exists("Custom HTML Block", block_name):
+			doc.append("custom_blocks", {
+				"custom_block_name": block_name,
+				"label": block_label,
+			})
+
+	# ── Standard link cards (renders without developer-mode restrictions) ──
+	doc.links = []
+	# Card 1: Core Features
+	doc.append("links", {"type": "Card Break", "label": "Core Features", "icon": "folder"})
+	for label, link_to, link_type in [
+		("Performance Task", "Performance Task", "DocType"),
+		("Task Extension Request", "Task Extension Request", "DocType"),
+		("Checklist Template", "Checklist Template", "DocType"),
+	]:
+		doc.append("links", {"type": "Link", "label": label, "link_to": link_to, "link_type": link_type})
+
+	# Card 2: Reports & Logs
+	doc.append("links", {"type": "Card Break", "label": "Reports & Logs", "icon": "list"})
+	for label, link_to, link_type in [
+		("PM Audit Log", "PM Audit Log", "DocType"),
+		("WhatsApp Message Log", "WhatsApp Message Log", "DocType"),
+		("Green API Settings", "Green API Settings", "DocType"),
+		("Team Performance Report", "Team Performance Report", "Report"),
+	]:
+		doc.append("links", {"type": "Link", "label": label, "link_to": link_to, "link_type": link_type})
+
+	# Ensure "All" role
 	if not any(r.role == "All" for r in doc.roles):
 		doc.append("roles", {"role": "All"})
-		
+
+	# ── Content JSON: two link cards + two custom HTML block slots ─────────
+	content = json.dumps([
+		{"id": "card_core",   "type": "card",         "data": {"card_name": "Core Features",  "col": 6}},
+		{"id": "card_logs",   "type": "card",         "data": {"card_name": "Reports & Logs", "col": 6}},
+		{"id": "admin_block", "type": "custom_block", "data": {"custom_block_name": "PM Admin Dashboard", "col": 12}},
+		{"id": "user_block",  "type": "custom_block", "data": {"custom_block_name": "PM User Dashboard",  "col": 12}},
+	])
+	# Set temporarily so validate() has something valid
+	doc.content = content
 	doc.save(ignore_permissions=True)
+	frappe.db.commit()
+
+	# Force the content via direct SQL — bypasses any ORM reset during save()
+	frappe.db.sql(
+		"UPDATE `tabWorkspace` SET content=%s WHERE name=%s",
+		(content, ws_name)
+	)
+	frappe.db.commit()
 
 	# 2. DELETE redundant workspaces
 	old_ws = "User Performance Dashboard"
 	if frappe.db.exists("Workspace", old_ws):
 		frappe.delete_doc("Workspace", old_ws, force=True, ignore_permissions=True)
+
+
 
 def ensure_page_proxy():
 	p_id = "pm-user-dashboard"

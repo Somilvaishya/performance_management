@@ -21,6 +21,7 @@ scheduler_events = {
     "cron": {
         "0 8 * * *": [
             "performance_management.performance_management.utils.automation.send_daily_reminders",
+            "performance_management.performance_management.utils.whatsapp_automation.send_daily_whatsapp_reminders",
         ]
     }
 }
@@ -49,7 +50,11 @@ after_migrate = "performance_management.performance_management.setup.after_migra
 fixtures = [
     {
         "doctype": "Custom HTML Block",
-        "filters": [["name", "in", ["PM User Dashboard", "PM Admin Dashboard"]]]
+        "filters": [["name", "in", ["PM User Dashboard", "PM Admin Dashboard", "PM Employee Dashboard"]]]
+    },
+    {
+        "doctype": "Custom Field",
+        "filters": [["dt", "=", "Employee"], ["fieldname", "=", "custom_company_phone_no"]]
     }
 ]
 

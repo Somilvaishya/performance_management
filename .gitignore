@@ -1,0 +1,47 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyc
+*.pyd
+
+# Distribution / packaging
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+env/
+.env
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Frappe specific
+*.sql
+*.db
+site_config.json
+sites/
+logs/
+.coverage
+htmlcov/
+
+# Debug / temp scripts (kept in scripts/archive/ if needed, not tracked)
+performance_management/check_logs.py
+performance_management/check_ws_state.py
+performance_management/create_doctype.py
+performance_management/create_log_doctype.py
+performance_management/debug_whatsapp.py
+
+# Node
+node_modules/
+yarn.lock
+package-lock.json

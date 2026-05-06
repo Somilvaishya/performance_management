@@ -1,6 +1,7 @@
 import frappe
 from frappe import _
 from frappe.model.document import Document
+from performance_management.performance_management.utils.whatsapp import send_dual_notification
 
 class TaskExtensionRequest(Document):
 
@@ -20,21 +21,17 @@ class TaskExtensionRequest(Document):
 		if self.task:
 			task_doc = frappe.get_doc("Performance Task", self.task)
 			msg = f"<p>Hello,</p><p><strong>{self.requested_by}</strong> has requested to extend the deadline for task <strong>{task_doc.task_title}</strong> to <strong>{self.requested_deadline}</strong>.</p><p>Reason: {self.reason}</p>"
-			self._send_notification(task_doc.assigned_by, f"Extension Requested: {task_doc.task_title}", msg)
-
-	def _send_notification(self, recipient, subject, message):
-		try:
-			recipient_email = frappe.db.get_value("User", recipient, "email") or recipient
-			frappe.sendmail(recipients=recipient_email, subject=subject, message=message, header=[subject, "blue"])
-		except Exception as e:
-			frappe.log_error(f"Failed to send email to {recipient}: {str(e)}", "Email Notification Error")
+			wa_msg = f"*{self.requested_by}* has requested to extend the deadline for task *{task_doc.task_title}* to *{self.requested_deadline}*.\nReason: {self.reason}"
+			send_dual_notification(task_doc.assigned_by, f"Extension Requested: {task_doc.task_title}", msg, wa_msg)
 
 	def _send_decision_email(self, decision, reason=None):
 		task_title = frappe.db.get_value("Performance Task", self.task, "task_title") or self.task
 		reason_html = f"<p>Manager Comments: {reason}</p>" if reason else ""
+		reason_wa = f"\nManager Comments: {reason}" if reason else ""
 		color = "green" if decision == "Approved" else "red"
 		msg = f"<p>Hello,</p><p>Your extension request for <strong>{task_title}</strong> has been <b><span style='color:{color}'>{decision}</span></b>.</p>{reason_html}"
-		self._send_notification(self.requested_by, f"Extension {decision}: {task_title}", msg)
+		wa_msg = f"Your extension request for *{task_title}* has been *{decision}*.{reason_wa}"
+		send_dual_notification(self.requested_by, f"Extension {decision}: {task_title}", msg, wa_msg)
 
 	def update_parent_task_deadline(self):
 		if not self.task:

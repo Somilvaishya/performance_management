@@ -34,7 +34,7 @@ def send_daily_reminders():
 	"""
 	today_str = today()
 	tasks = frappe.db.sql("""
-		SELECT assigned_to, name, task_title, deadline, is_overdue
+		SELECT assigned_to, name, task_title, deadline, is_overdue, task_type
 		FROM `tabPerformance Task`
 		WHERE status IN ('Pending', 'In Progress')
 		AND DATE(deadline) <= %s
@@ -58,27 +58,42 @@ def send_reminder_email(user, tasks):
 	if not user_doc.email:
 		return
 
-	rows = ""
-	for t in tasks:
-		overdue_tag = '<span style="color:red; font-weight:bold;"> ⚠ OVERDUE</span>' if t.is_overdue else ""
-		rows += f"<tr><td><b>{t.name}</b></td><td>{t.task_title}</td><td>{t.deadline}{overdue_tag}</td></tr>"
+	overdue_tasks = [t for t in tasks if t.is_overdue]
+	checklist_tasks = [t for t in tasks if not t.is_overdue and t.task_type == "Checklist"]
+	other_tasks = [t for t in tasks if not t.is_overdue and t.task_type != "Checklist"]
 
-	html = f"""
-	<p>Hi {user_doc.first_name},</p>
-	<p>Here are your open tasks for today.</p>
-	<p><i>Note: This includes tasks due today as well as any previously overdue tasks.</i></p>
-	<table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
-		<thead>
-			<tr style="background-color: #f3f4f6;">
-				<th style="text-align: left;">Task ID</th>
-				<th style="text-align: left;">Title</th>
-				<th style="text-align: left;">Deadline</th>
-			</tr>
-		</thead>
-		<tbody>{rows}</tbody>
-	</table>
-	<p>Please log in to your Workspace and update your task statuses.</p>
-	"""
+	html = f"<p>Hi {user_doc.first_name},</p><p>Here is your daily task summary. You have {len(tasks)} tasks requiring your attention:</p>"
+	
+	def build_table(task_list, header_color):
+		rows = ""
+		for t in task_list:
+			rows += f"<tr><td><b>{t.name}</b></td><td>{t.task_title}</td><td>{t.deadline}</td></tr>"
+		return f'''
+		<table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
+			<thead>
+				<tr style="background-color: {header_color}; color: white;">
+					<th style="text-align: left;">Task ID</th>
+					<th style="text-align: left;">Title</th>
+					<th style="text-align: left;">Deadline</th>
+				</tr>
+			</thead>
+			<tbody>{rows}</tbody>
+		</table>
+		'''
+
+	if overdue_tasks:
+		html += "<h3>🚨 Overdue Tasks</h3>"
+		html += build_table(overdue_tasks, "#dc2626")
+		
+	if checklist_tasks:
+		html += "<h3>✅ Daily Checklist</h3>"
+		html += build_table(checklist_tasks, "#059669")
+		
+	if other_tasks:
+		html += "<h3>📝 Standard Tasks Due Today</h3>"
+		html += build_table(other_tasks, "#2563eb")
+
+	html += "<p>Please log in to your Workspace and update your task statuses.</p>"
 
 	frappe.sendmail(
 		recipients=[user_doc.email],

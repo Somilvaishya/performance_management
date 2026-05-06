@@ -90,6 +90,28 @@
             "collapsible": 1,
             "indent": 0,
             "keep_closed": 0,
+            "label": "WhatsApp Message Log",
+            "link_to": "WhatsApp Message Log",
+            "link_type": "DocType",
+            "show_arrow": 0,
+            "type": "Link"
+        },
+        {
+            "child": 1,
+            "collapsible": 1,
+            "indent": 0,
+            "keep_closed": 0,
+            "label": "Green API Settings",
+            "link_to": "Green API Settings",
+            "link_type": "DocType",
+            "show_arrow": 0,
+            "type": "Link"
+        },
+        {
+            "child": 1,
+            "collapsible": 1,
+            "indent": 0,
+            "keep_closed": 0,
             "label": "Team Performance Report",
             "link_to": "Team Performance Report",
             "link_type": "Report",
@@ -97,7 +119,7 @@
             "type": "Link"
         }
     ],
-    "modified": "2026-12-31 00:00:00.000000",
+    "modified": "2026-05-05 15:00:00.000000",
     "modified_by": "Administrator",
     "module": "Performance Management",
     "name": "Performance Management",
