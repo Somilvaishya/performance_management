@@ -19,9 +19,6 @@ def after_migrate():
 	# 2. Ensure Workspaces are configured
 	ensure_workspaces()
 	
-	# 3. Ensure Page Proxy exists for sidebar
-	ensure_page_proxy()
-	
 	# 4. Clear cache to reflect changes
 	frappe.clear_cache()
 
@@ -157,15 +154,3 @@ def ensure_workspaces():
 	old_ws = "User Performance Dashboard"
 	if frappe.db.exists("Workspace", old_ws):
 		frappe.delete_doc("Workspace", old_ws, force=True, ignore_permissions=True)
-
-
-
-def ensure_page_proxy():
-	p_id = "pm-user-dashboard"
-	if not frappe.db.exists("Page", p_id):
-		# SQL insert to bypass Developer Mode safely during installation
-		frappe.db.sql(f"""
-			INSERT INTO `tabPage` (name, page_name, title, module, standard, creation, modified, owner, modified_by)
-			VALUES ('{p_id}', '{p_id}', 'User Dashboard', 'Performance Management', 1, NOW(), NOW(), 'Administrator', 'Administrator')
-		""")
-		frappe.db.sql(f"INSERT INTO `tabHas Role` (name, parent, parenttype, parentfield, role, idx) VALUES (UUID(), '{p_id}', 'Page', 'roles', 'All', 1)")
