@@ -140,6 +140,7 @@ def ensure_workspaces():
 	])
 	# Set temporarily so validate() has something valid
 	doc.content = content
+	doc.flags.ignore_links = True
 	doc.save(ignore_permissions=True)
 	frappe.db.commit()
 
