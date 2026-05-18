@@ -1,16 +1,16 @@
 {
  "app": "performance_management",
  "charts": [],
- "content": "[{\"id\":\"YrQbuUq6w_\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"PM User Dashboard\",\"col\":12}},{\"id\":\"Pj8gtEWmkG\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"PM Admin Dashboard\",\"col\":12}},{\"id\":\"card_core\",\"type\":\"card\",\"data\":{\"card_name\":\"Core Features\",\"col\":6}},{\"id\":\"card_logs\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports & Logs\",\"col\":6}}]",
- "creation": "2026-05-05 15:36:36.307103",
+ "content": "[{\"id\": \"card_core\", \"type\": \"card\", \"data\": {\"card_name\": \"Core Features\", \"col\": 6}}, {\"id\": \"card_logs\", \"type\": \"card\", \"data\": {\"card_name\": \"Reports & Logs\", \"col\": 6}}, {\"id\": \"admin_block\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"PM Admin Dashboard\", \"col\": 12}}, {\"id\": \"user_block\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"PM User Dashboard\", \"col\": 12}}]",
+ "creation": "2026-05-05 15:49:07.017703",
  "custom_blocks": [
   {
    "custom_block_name": "PM User Dashboard",
-   "label": "PM User Dashboard"
+   "label": "My Performance"
   },
   {
    "custom_block_name": "PM Admin Dashboard",
-   "label": "PM Admin Dashboard"
+   "label": "Admin Overview"
   }
  ],
  "docstatus": 0,
@@ -114,7 +114,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-05-05 15:39:00.790592",
+ "modified": "2026-05-05 16:00:00.000000",
  "modified_by": "Administrator",
  "module": "Performance Management",
  "name": "Performance Management",

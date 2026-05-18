@@ -46,11 +46,18 @@ has_permission = {
 after_install = "performance_management.performance_management.setup.after_install"
 after_migrate = "performance_management.performance_management.setup.after_migrate"
 
-# ─── Fixtures ─────────────────────────────────────────────────────────────────
+# --- Fixtures ---
+# Loaded on every bench migrate - makes app globally portable on any new site.
+# Workspace fixture ensures sidebar + links appear automatically on install.
+# Custom HTML Block provides skeleton blocks; setup.py injects actual HTML/JS.
 fixtures = [
     {
+        "doctype": "Workspace",
+        "filters": [["name", "=", "Performance Management"]]
+    },
+    {
         "doctype": "Custom HTML Block",
-        "filters": [["name", "in", ["PM User Dashboard", "PM Admin Dashboard", "PM Employee Dashboard"]]]
+        "filters": [["name", "in", ["PM User Dashboard", "PM Admin Dashboard"]]]
     },
     {
         "doctype": "Custom Field",

@@ -2,7 +2,7 @@
  {
   "app": "performance_management",
   "charts": [],
-  "content": "[]",
+  "content": "[{\"id\": \"card_core\", \"type\": \"card\", \"data\": {\"card_name\": \"Core Features\", \"col\": 6}}, {\"id\": \"card_logs\", \"type\": \"card\", \"data\": {\"card_name\": \"Reports & Logs\", \"col\": 6}}, {\"id\": \"admin_block\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"PM Admin Dashboard\", \"col\": 12}}, {\"id\": \"user_block\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"PM User Dashboard\", \"col\": 12}}]",
   "custom_blocks": [
    {
     "custom_block_name": "PM User Dashboard",
@@ -24,8 +24,100 @@
   "label": "Performance Management",
   "link_to": null,
   "link_type": null,
-  "links": [],
-  "modified": "2026-05-05 14:43:56.965621",
+  "links": [
+   {
+    "hidden": 0,
+    "icon": "folder",
+    "is_query_report": 0,
+    "label": "Core Features",
+    "link_count": 0,
+    "link_type": "DocType",
+    "onboard": 0,
+    "type": "Card Break"
+   },
+   {
+    "hidden": 0,
+    "is_query_report": 0,
+    "label": "Performance Task",
+    "link_count": 0,
+    "link_to": "Performance Task",
+    "link_type": "DocType",
+    "onboard": 0,
+    "type": "Link"
+   },
+   {
+    "hidden": 0,
+    "is_query_report": 0,
+    "label": "Task Extension Request",
+    "link_count": 0,
+    "link_to": "Task Extension Request",
+    "link_type": "DocType",
+    "onboard": 0,
+    "type": "Link"
+   },
+   {
+    "hidden": 0,
+    "is_query_report": 0,
+    "label": "Checklist Template",
+    "link_count": 0,
+    "link_to": "Checklist Template",
+    "link_type": "DocType",
+    "onboard": 0,
+    "type": "Link"
+   },
+   {
+    "hidden": 0,
+    "icon": "list",
+    "is_query_report": 0,
+    "label": "Reports & Logs",
+    "link_count": 0,
+    "link_type": "DocType",
+    "onboard": 0,
+    "type": "Card Break"
+   },
+   {
+    "hidden": 0,
+    "is_query_report": 0,
+    "label": "PM Audit Log",
+    "link_count": 0,
+    "link_to": "PM Audit Log",
+    "link_type": "DocType",
+    "onboard": 0,
+    "type": "Link"
+   },
+   {
+    "hidden": 0,
+    "is_query_report": 0,
+    "label": "WhatsApp Message Log",
+    "link_count": 0,
+    "link_to": "WhatsApp Message Log",
+    "link_type": "DocType",
+    "onboard": 0,
+    "type": "Link"
+   },
+   {
+    "hidden": 0,
+    "is_query_report": 0,
+    "label": "Green API Settings",
+    "link_count": 0,
+    "link_to": "Green API Settings",
+    "link_type": "DocType",
+    "onboard": 0,
+    "type": "Link"
+   },
+   {
+    "hidden": 0,
+    "is_query_report": 0,
+    "label": "Team Performance Report",
+    "link_count": 0,
+    "link_to": "Team Performance Report",
+    "link_type": "Report",
+    "onboard": 0,
+    "report_ref_doctype": "Performance Task",
+    "type": "Link"
+   }
+  ],
+  "modified": "2026-05-05 16:00:00.000000",
   "module": "Performance Management",
   "name": "Performance Management",
   "number_cards": [],
